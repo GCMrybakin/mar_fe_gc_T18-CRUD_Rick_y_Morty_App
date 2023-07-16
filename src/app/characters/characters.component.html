@@ -1,0 +1,132 @@
+<script src="https://cdn.jsdelivr.net/npm/@ng-bootstrap/ng-bootstrap@11.0.1/bundles/ng-bootstrap.js"></script>
+<button class="btn btn-primary btn-lg m-5 mx-auto d-block" (click)="openCreateCharacterModal()">Crear personaje</button>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4" *ngFor="let character of characters">
+            <div class="card mb-3">
+                <img class="card-img-top" [src]="character.image" alt="Imagen del personaje">
+                <div class="card-body">
+                    <h5 class="card-title">{{ character.name }}</h5>
+                    <button class="btn btn-primary" (click)="openCharacterDetailsModal(character)">Ver detalles</button>
+                    <button class="btn btn-secondary" (click)="openEditCharacterModal(character)">Editar</button>
+                    <button class="btn btn-danger" (click)="openDeleteCharacterModal(character)">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #characterDetailsModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Detalles del personaje</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+        <p>Estado: {{ selectedCharacter.status }}</p>
+        <p>Especie: {{ selectedCharacter.species }}</p>
+        <p>Género: {{ selectedCharacter.gender }}</p>
+        <p>Origen: {{ selectedCharacter.origin }}</p>
+    </div>
+</ng-template>
+
+<ng-template #createCharacterModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Crear personaje</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="selectedCharacter.name">
+            </div>
+            <div class="form-group">
+                <label for="status">Estado</label>
+                <input type="text" class="form-control" id="status" name="status" [(ngModel)]="selectedCharacter.status">
+            </div>
+            <div class="form-group">
+                <label for="species">Especie</label>
+                <input type="text" class="form-control" id="species" name="species" [(ngModel)]="selectedCharacter.species">
+            </div>
+            <div class="form-group">
+                <label for="genre">Genero</label>
+                <input type="text" class="form-control" id="genre" name="genre" [(ngModel)]="selectedCharacter.genre">
+            </div>
+            <div class="form-group">
+                <label for="origin">Origen</label>
+                <input type="text" class="form-control" id="origin" name="origin" [(ngModel)]="selectedCharacter.origin">
+            </div>
+            <div class="form-group">
+                <label for="image">Imagen(link)</label>
+                <input type="text" class="form-control" id="image" name="image" [(ngModel)]="selectedCharacter.image">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="createCharacter()">Crear personaje</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    </div>
+</ng-template>
+
+
+<ng-template #editCharacterModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Editar personaje</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="selectedCharacter.name">
+            </div>
+            <div class="form-group">
+                <label for="status">Estado</label>
+                <input type="text" class="form-control" id="status" name="status" [(ngModel)]="selectedCharacter.status">
+            </div>
+            <div class="form-group">
+                <label for="species">Especie</label>
+                <input type="text" class="form-control" id="species" name="species" [(ngModel)]="selectedCharacter.species">
+            </div>
+            <div class="form-group">
+                <label for="gender">Genero</label>
+                <input type="text" class="form-control" id="gender" name="gender" [(ngModel)]="selectedCharacter.gender">
+            </div>
+            <div class="form-group">
+                <label for="origin">Origen</label>
+                <input type="text" class="form-control" id="origin" name="origin" [(ngModel)]="selectedCharacter.origin">
+            </div>
+            <div class="form-group">
+                <label for="image">Imagen(link)</label>
+                <input type="text" class="form-control" id="image" name="image" [(ngModel)]="selectedCharacter.image">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updateCharacter()">Guardar cambios</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    </div>
+</ng-template>
+
+
+<ng-template #deleteCharacterModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Eliminar personaje</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+        <p>¿Estás seguro de que deseas eliminar el personaje '{{ selectedCharacter.name }}'?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteCharacter()">Eliminar</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    </div>
+</ng-template>
