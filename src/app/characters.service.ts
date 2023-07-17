@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CharactersService {
-  private apiUrl = './server/database.json';
+  private apiUrl = 'http://localhost:3000/characters';
 
   constructor(private http: HttpClient) { }
 
@@ -18,16 +18,16 @@ export class CharactersService {
     return this.http.get(url);
   }
 
-  createCharacter(character: any) {
+  crearPersonaje(character: any) {
     return this.http.post(this.apiUrl, character);
   }
 
-  updateCharacter(id: number, character: any) {
+  actualizarPersonaje(id: number, character: any) {
     const url = `${this.apiUrl}/${id}`;
     return this.http.put(url, character);
   }
 
-  deleteCharacter(id: number) {
+  eliminarPersonaje(id: number) {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete(url);
   }

@@ -8,13 +8,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./characters.component.css']
 })
 export class CharactersComponent implements OnInit {
-  characters: any[] = [];
-  selectedCharacter: any;
+  personajes: any[] = [];
+  personajeSeleccionado: any;
+  personajeAleatorio: any;
 
-  @ViewChild('characterDetailsModal') characterDetailsModal: any;
-  @ViewChild('editCharacterModal') editCharacterModal: any;
-  @ViewChild('createCharacterModal') createCharacterModal: any;
-  @ViewChild('deleteCharacterModal') deleteCharacterModal: any;
+  @ViewChild('personajeDetailsModal') personajeDetailsModal: any;
+  @ViewChild('editpersonajeModal') editpersonajeModal: any;
+  @ViewChild('createpersonajeModal') createpersonajeModal: any;
+  @ViewChild('deletepersonajeModal') deletepersonajeModal: any;
+  @ViewChild('personajeAleatorioDetailsModal') personajeAleatorioDetailsModal: any;
 
   constructor(private charactersService: CharactersService, private modalService: NgbModal) { }
 
@@ -25,32 +27,33 @@ export class CharactersComponent implements OnInit {
   getCharacters() {
     this.charactersService.getCharacters().subscribe(
       (response: any) => {
-        this.characters = response;
-      },
-      error => {
-        console.log(error);
+        this.personajes = response;
       }
     );
   }
 
-  openCharacterDetailsModal(character: any) {
-    this.selectedCharacter = character;
-    this.modalService.open(this.characterDetailsModal, { centered: true });
+  abrirPersonajeDetallesModal(character: any) {
+    this.personajeSeleccionado = character;
+    this.modalService.open(this.personajeDetailsModal, { centered: true });
   }
 
-  openEditCharacterModal(character: any) {
-    this.selectedCharacter = JSON.parse(JSON.stringify(character));
-    this.modalService.open(this.editCharacterModal, { centered: true });
+  abrirPersonajeEditarModal(character: any) {
+    this.personajeSeleccionado = JSON.parse(JSON.stringify(character));
+    this.modalService.open(this.editpersonajeModal, { centered: true });
   }
 
-  openCreateCharacterModal() {
-    this.selectedCharacter = {};
-    this.modalService.open(this.createCharacterModal, { centered: true });
+  abrirPersonajeCrearModal() {
+    this.personajeSeleccionado = {};
+    this.modalService.open(this.createpersonajeModal, { centered: true });
   }
-  
 
-  createCharacter() {
-    this.charactersService.createCharacter(this.selectedCharacter).subscribe(
+  abrirPersonajeEliminarModal(character: any) {
+    this.personajeSeleccionado = character;
+    this.modalService.open(this.deletepersonajeModal,{centered: true});
+  }
+
+  crearPersonaje() {
+    this.charactersService.crearPersonaje(this.personajeSeleccionado).subscribe(
       (response: any) => {
         console.log('Personaje creado', response);
         this.modalService.dismissAll();
@@ -62,8 +65,8 @@ export class CharactersComponent implements OnInit {
     );
   }
 
-  updateCharacter() {
-    this.charactersService.updateCharacter(this.selectedCharacter.id, this.selectedCharacter).subscribe(
+  actualizarPersonaje() {
+    this.charactersService.actualizarPersonaje(this.personajeSeleccionado.id, this.personajeSeleccionado).subscribe(
       (response: any) => {
         console.log('Personaje actualizado', response);
         this.modalService.dismissAll();
@@ -75,13 +78,8 @@ export class CharactersComponent implements OnInit {
     );
   }
 
-  openDeleteCharacterModal(character: any) {
-    this.selectedCharacter = character;
-    this.modalService.open(this.deleteCharacterModal, { centered: true });
-  }
-
-  deleteCharacter() {
-    this.charactersService.deleteCharacter(this.selectedCharacter.id).subscribe(
+  eliminarPersonaje() {
+    this.charactersService.eliminarPersonaje(this.personajeSeleccionado.id).subscribe(
       (response: any) => {
         console.log('Personaje eliminado', response);
         this.modalService.dismissAll();
@@ -89,6 +87,23 @@ export class CharactersComponent implements OnInit {
       },
       error => {
         console.log('Error al eliminar personaje', error);
+      }
+    );
+  }
+
+  abrirPersonajeAleatorioModal() {
+    this.charactersService.getCharacters().subscribe(
+      (response: any) => {
+        console.log(response);
+        const cantidadPersonajes = response.length;
+        const IDRandom = Math.floor(Math.random() * cantidadPersonajes) + 1;
+        this.charactersService.getCharacterById(IDRandom).subscribe(
+          (character: any) => {
+            this.personajeAleatorio = character;
+            console.log(this.personajeAleatorio);
+            this.modalService.open(this.personajeAleatorioDetailsModal, { centered: true });
+          }
+        );
       }
     );
   }

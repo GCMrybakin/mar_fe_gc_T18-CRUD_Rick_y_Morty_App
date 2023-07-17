@@ -1,22 +1,24 @@
 <script src="https://cdn.jsdelivr.net/npm/@ng-bootstrap/ng-bootstrap@11.0.1/bundles/ng-bootstrap.js"></script>
-<button class="btn btn-primary btn-lg m-5 mx-auto d-block" (click)="openCreateCharacterModal()">Crear personaje</button>
+<button class="btn btn-primary btn-lg m-5 mx-auto d-block" (click)="abrirPersonajeCrearModal()">Crear personaje</button>
+<button class="btn btn-primary btn-lg m-5 mx-auto d-block" (click)="abrirPersonajeAleatorioModal()">Personaje Aleatorio</button>
+
 <div class="container">
     <div class="row">
-        <div class="col-md-4" *ngFor="let character of characters">
+        <div class="col-md-4" *ngFor="let personaje of personajes">
             <div class="card mb-3">
-                <img class="card-img-top" [src]="character.image" alt="Imagen del personaje">
+                <img class="card-img-top" [src]="personaje.image" alt="Imagen del personaje">
                 <div class="card-body">
-                    <h5 class="card-title">{{ character.name }}</h5>
-                    <button class="btn btn-primary" (click)="openCharacterDetailsModal(character)">Ver detalles</button>
-                    <button class="btn btn-secondary" (click)="openEditCharacterModal(character)">Editar</button>
-                    <button class="btn btn-danger" (click)="openDeleteCharacterModal(character)">Eliminar</button>
+                    <h5 class="card-title">{{ personaje.name }}</h5>
+                    <button class="btn btn-primary" (click)="abrirPersonajeDetallesModal(personaje)">Ver detalles</button>
+                    <button class="btn btn-secondary" (click)="abrirPersonajeEditarModal(personaje)">Editar</button>
+                    <button class="btn btn-danger" (click)="abrirPersonajeEliminarModal(personaje)">Eliminar</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<ng-template #characterDetailsModal let-modal>
+<ng-template #personajeDetailsModal let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Detalles del personaje</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
@@ -24,14 +26,32 @@
             </button>
     </div>
     <div class="modal-body">
-        <p>Estado: {{ selectedCharacter.status }}</p>
-        <p>Especie: {{ selectedCharacter.species }}</p>
-        <p>Género: {{ selectedCharacter.gender }}</p>
-        <p>Origen: {{ selectedCharacter.origin }}</p>
+        <p>Nombre: {{personajeSeleccionado.name}}</p>
+        <p>Estado: {{personajeSeleccionado.status}}</p>
+        <p>Especie: {{personajeSeleccionado.species}}</p>
+        <p>Género: {{personajeSeleccionado.gender}}</p>
+        <p>Origen: {{personajeSeleccionado.origin}}</p>
     </div>
 </ng-template>
 
-<ng-template #createCharacterModal let-modal>
+<ng-template #personajeAleatorioDetailsModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Detalles del personaje aleatorio</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+        <img class="card-img-top" [src]="personajeAleatorio.image" alt="Imagen del personaje aleatorio">
+        <p>Nombre: {{personajeAleatorio.name}}</p>
+        <p>Estado: {{personajeAleatorio.status}}</p>
+        <p>Especie: {{personajeAleatorio.species}}</p>
+        <p>Género: {{personajeAleatorio.gender}}</p>
+        <p>Origen: {{personajeAleatorio.origin}}</p>
+    </div>
+</ng-template>
+
+<ng-template #createpersonajeModal let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Crear personaje</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
@@ -42,38 +62,38 @@
         <form>
             <div class="form-group">
                 <label for="name">Nombre</label>
-                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="selectedCharacter.name">
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="personajeSeleccionado.name">
             </div>
             <div class="form-group">
                 <label for="status">Estado</label>
-                <input type="text" class="form-control" id="status" name="status" [(ngModel)]="selectedCharacter.status">
+                <input type="text" class="form-control" id="status" name="status" [(ngModel)]="personajeSeleccionado.status">
             </div>
             <div class="form-group">
                 <label for="species">Especie</label>
-                <input type="text" class="form-control" id="species" name="species" [(ngModel)]="selectedCharacter.species">
+                <input type="text" class="form-control" id="species" name="species" [(ngModel)]="personajeSeleccionado.species">
             </div>
             <div class="form-group">
                 <label for="genre">Genero</label>
-                <input type="text" class="form-control" id="genre" name="genre" [(ngModel)]="selectedCharacter.genre">
+                <input type="text" class="form-control" id="genre" name="genre" [(ngModel)]="personajeSeleccionado.genre">
             </div>
             <div class="form-group">
                 <label for="origin">Origen</label>
-                <input type="text" class="form-control" id="origin" name="origin" [(ngModel)]="selectedCharacter.origin">
+                <input type="text" class="form-control" id="origin" name="origin" [(ngModel)]="personajeSeleccionado.origin">
             </div>
             <div class="form-group">
                 <label for="image">Imagen(link)</label>
-                <input type="text" class="form-control" id="image" name="image" [(ngModel)]="selectedCharacter.image">
+                <input type="text" class="form-control" id="image" name="image" [(ngModel)]="personajeSeleccionado.image">
             </div>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="createCharacter()">Crear personaje</button>
+        <button type="button" class="btn btn-primary" (click)="crearPersonaje()">Crear personaje</button>
         <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
     </div>
 </ng-template>
 
 
-<ng-template #editCharacterModal let-modal>
+<ng-template #editpersonajeModal let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Editar personaje</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
@@ -84,38 +104,38 @@
         <form>
             <div class="form-group">
                 <label for="name">Nombre</label>
-                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="selectedCharacter.name">
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="personajeSeleccionado.name">
             </div>
             <div class="form-group">
                 <label for="status">Estado</label>
-                <input type="text" class="form-control" id="status" name="status" [(ngModel)]="selectedCharacter.status">
+                <input type="text" class="form-control" id="status" name="status" [(ngModel)]="personajeSeleccionado.status">
             </div>
             <div class="form-group">
                 <label for="species">Especie</label>
-                <input type="text" class="form-control" id="species" name="species" [(ngModel)]="selectedCharacter.species">
+                <input type="text" class="form-control" id="species" name="species" [(ngModel)]="personajeSeleccionado.species">
             </div>
             <div class="form-group">
                 <label for="gender">Genero</label>
-                <input type="text" class="form-control" id="gender" name="gender" [(ngModel)]="selectedCharacter.gender">
+                <input type="text" class="form-control" id="gender" name="gender" [(ngModel)]="personajeSeleccionado.gender">
             </div>
             <div class="form-group">
                 <label for="origin">Origen</label>
-                <input type="text" class="form-control" id="origin" name="origin" [(ngModel)]="selectedCharacter.origin">
+                <input type="text" class="form-control" id="origin" name="origin" [(ngModel)]="personajeSeleccionado.origin">
             </div>
             <div class="form-group">
                 <label for="image">Imagen(link)</label>
-                <input type="text" class="form-control" id="image" name="image" [(ngModel)]="selectedCharacter.image">
+                <input type="text" class="form-control" id="image" name="image" [(ngModel)]="personajeSeleccionado.image">
             </div>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="updateCharacter()">Guardar cambios</button>
+        <button type="button" class="btn btn-primary" (click)="actualizarPersonaje()">Guardar cambios</button>
         <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
     </div>
 </ng-template>
 
 
-<ng-template #deleteCharacterModal let-modal>
+<ng-template #deletepersonajeModal let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Eliminar personaje</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
@@ -123,10 +143,10 @@
             </button>
     </div>
     <div class="modal-body">
-        <p>¿Estás seguro de que deseas eliminar el personaje '{{ selectedCharacter.name }}'?</p>
+        <p>¿Estás seguro de que deseas eliminar el personaje '{{ personajeSeleccionado.name }}'?</p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="deleteCharacter()">Eliminar</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarPersonaje()">Eliminar</button>
         <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
     </div>
 </ng-template>
