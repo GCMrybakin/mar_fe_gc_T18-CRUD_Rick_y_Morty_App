@@ -14,8 +14,8 @@ export class CharactersComponent implements OnInit {
 
   @ViewChild('personajeDetailsModal') personajeDetailsModal: any;
   @ViewChild('editpersonajeModal') editpersonajeModal: any;
-  @ViewChild('createpersonajeModal') createpersonajeModal: any;
-  @ViewChild('deletepersonajeModal') deletepersonajeModal: any;
+  @ViewChild('crearpersonajeModal') crearpersonajeModal: any;
+  @ViewChild('eliminarpersonajeModal') eliminarpersonajeModal: any;
   @ViewChild('personajeAleatorioDetailsModal') personajeAleatorioDetailsModal: any;
 
   constructor(private charactersService: CharactersService, private modalService: NgbModal) { }
@@ -44,12 +44,12 @@ export class CharactersComponent implements OnInit {
 
   abrirPersonajeCrearModal() {
     this.personajeSeleccionado = {};
-    this.modalService.open(this.createpersonajeModal, { centered: true });
+    this.modalService.open(this.crearpersonajeModal, { centered: true });
   }
 
   abrirPersonajeEliminarModal(character: any) {
     this.personajeSeleccionado = character;
-    this.modalService.open(this.deletepersonajeModal,{centered: true});
+    this.modalService.open(this.eliminarpersonajeModal,{centered: true});
   }
 
   crearPersonaje() {
