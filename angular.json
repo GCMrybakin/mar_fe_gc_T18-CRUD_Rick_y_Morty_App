@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/t17-mrybakin-angular",
+            "outputPath": "dist/t18-mrybakin-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "T19-Mrybakin-Angular:build:production"
+              "browserTarget": "T18-Mrybakin-Angular:build:production"
             },
             "development": {
-              "browserTarget": "T19-Mrybakin-Angular:build:development"
+              "browserTarget": "T18-Mrybakin-Angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "T19-Mrybakin-Angular:build"
+            "browserTarget": "T18-Mrybakin-Angular:build"
           }
         },
         "test": {

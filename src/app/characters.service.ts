@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CharactersService {
-  private apiUrl = 'http://localhost:3000/characters';
+  private apiUrl = './server/database.json';
 
   constructor(private http: HttpClient) { }
 
