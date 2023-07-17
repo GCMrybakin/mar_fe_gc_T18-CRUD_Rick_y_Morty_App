@@ -54,21 +54,20 @@ export class CharactersComponent implements OnInit {
       (response: any) => {
         console.log('Personaje creado', response);
         this.modalService.dismissAll();
-        this.getCharacters(); // Actualizar la lista de personajes después de la creación
+        this.getCharacters();
       },
       error => {
         console.log('Error al crear el personaje', error);
       }
     );
   }
-  
 
   updateCharacter() {
     this.charactersService.updateCharacter(this.selectedCharacter.id, this.selectedCharacter).subscribe(
       (response: any) => {
         console.log('Personaje actualizado', response);
         this.modalService.dismissAll();
-        this.getCharacters(); // Actualizar la lista de personajes después de la actualización
+        this.getCharacters();
       },
       error => {
         console.log('Error al eliminar el personaje', error);
